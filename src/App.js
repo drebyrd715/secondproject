@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React from 'react'
+import { useState, createContext } from "react"
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Nav from './components/Nav';
+import PokemonPics from './pages/Pokemon';
+export const Context = createContext();
+
 
 function App() {
+  const [allPokemon, setAllPokemon] = useState([])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <Context.Provider value ={{allPokemon, setAllPokemon}}>
+      <Nav />
+      <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/pokemonpics" element={<PokemonPics/>} />
+      <Route path="/about" element={<About/>}/>
+    </Routes>
+    </Context.Provider>
   );
 }
 
-export default App;
+export default App
